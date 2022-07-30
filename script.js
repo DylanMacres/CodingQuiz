@@ -1,11 +1,31 @@
+
+
+//variables linked to the ids
 const startBtn = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-let shuffledQuestions, currentQuestionIndex
+const questionContainer = document.getElementById('question-container')
+const highScoreBtn = document.getElementById("showScoreBtn")
+let shuffledQuestions, currentQuestionIndex;
+const scoreCard =  document.getElementById("scoreCard")
 
 
-const startingMinutes = 2;
-let time = startingMinutes * 60;
+
+
+
+
+//stating variables
+let time = 90;
+let runningTimer;
+let timerEl;
+let score = 0;
+let username = "";
+let questionNumber = "";
+let endScore;
+const maxScore = 9;
+let highScores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+
+
 
 
 const countDownEl = document.getElementById('countdown')
@@ -35,20 +55,24 @@ nextButton.addEventListener('click', () => {
 
 
 
-
+//the function that starts the game 
 
 function startGame(){
     console.log('Started')
+
     setInterval(updateCoutdown, 1000);
+    //add the hide class to hide the start btn
     startBtn.classList.add('hide')
+    //calls the questions list and sorts them with a negative .5 value
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
+    //removes the hide class so the question is visible
+    questionContainer.classList.remove('hide')
     setNextQuestion()
 }
-
+//function to have the next question start
 function setNextQuestion(){
-    resetState()
+    resetClass()
     showQuestion(shuffledQuestions[currentQuestionIndex])
 }
 
@@ -65,8 +89,8 @@ function showQuestion(question) {
         answerButtonsElement.appendChild(button)
     })
 }
-
-function resetState(){
+//function to reset the page for the next question
+function resetClass(){
     
     clearStatusClass(document.body)
     nextButton.classList.add('hide')    
@@ -90,7 +114,7 @@ function selectAnswer(e){
     startBtn.classList.remove('hide')
     
 }
-
+//function with if then about wrong and correct answers
 function setStatusClass(element, correct){
     clearStatusClass(element)
     if (correct){
@@ -100,7 +124,7 @@ function setStatusClass(element, correct){
         element.classList.add('wrong')
     }
 }
-
+//function removing the wrong and right elements
 function clearStatusClass (element){
     element.classList.remove('correct')
     element.classList.remove('wrong')
@@ -108,12 +132,9 @@ function clearStatusClass (element){
 
 
 
-    function finishedGame(){
-        if ( countDownEl.innerHTML == "00:00"){
-            questionContainerElement.classList.add('hide')
-        } 
-    }
-    finishedGame()
+   function gameOver(){
+    
+   }
 
 const questions = [
     {
