@@ -5,16 +5,17 @@ const startBtn = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainer = document.getElementById('question-container')
 const highScoreBtn = document.getElementById("showScoreBtn")
-let shuffledQuestions, currentQuestionIndex;
+let shuffledQuestions, QIndex;
 const scoreCard =  document.getElementById("scoreCard")
-
-
+const button = document.createElement('button')
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-btn')
 
 
 
 
 //stating variables
-let time = 90;
+
 let runningTimer;
 let timerEl;
 let score = 0;
@@ -27,31 +28,34 @@ let highScores = JSON.parse(localStorage.getItem("highscores")) || [];
 
 
 
+// adding event listeners to start the game
+startBtn.addEventListener('click', startGame)
+nextButton.addEventListener('click', () => {
+    QIndex++
+    setNextQuestion()
+})
+
+
 
 const countDownEl = document.getElementById('countdown')
+// highScoreBtn.addEventListener("click")
 
+//timer set to the left of the game
+function startClock() {
+    runningTimer = setTimeout(startClock,1000);
+    countdown.innerText="Time Elapsed:" + runningTimer;
 
-
-function updateCoutdown() {
-    const minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-
-    countDownEl.innerHTML = `${minutes}: ${seconds}`;
-    time--;
-
+   //time limit 
+if(runningTimer === 90){
+    console.log("time limit reached")
+    
+    countdown.innerText = "Game Over"
+    gameOver()
+}
 }
 
 
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-btn')
 
-startBtn.addEventListener('click', startGame)
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion()
-})
 
 
 
@@ -60,23 +64,25 @@ nextButton.addEventListener('click', () => {
 function startGame(){
     console.log('Started')
 
-    setInterval(updateCoutdown, 1000);
+    // setInterval(updateCoutdown, 1000);
     //add the hide class to hide the start btn
     startBtn.classList.add('hide')
     //calls the questions list and sorts them with a negative .5 value
     shuffledQuestions = questions.sort(() => Math.random() - .5)
-    currentQuestionIndex = 0
+    QIndex = 0
     //removes the hide class so the question is visible
     questionContainer.classList.remove('hide')
+    startClock()
     setNextQuestion()
+
 }
 //function to have the next question start
 function setNextQuestion(){
     resetClass()
-    showQuestion(shuffledQuestions[currentQuestionIndex])
+    revealQuestion(shuffledQuestions[QIndex])
 }
-
-function showQuestion(question) {
+// function that shows the question and the proper 
+function revealQuestion(question) {
     questionElement.innerText = question.question
     question.answers.forEach(answer => {
         const button = document.createElement('button')
@@ -92,7 +98,7 @@ function showQuestion(question) {
 //function to reset the page for the next question
 function resetClass(){
     
-    clearStatusClass(document.body)
+    clearRightWrongEl(document.body)
     nextButton.classList.add('hide')    
         while (  answerButtonsElement.firstChild){
             answerButtonsElement.removeChild
@@ -101,22 +107,24 @@ function resetClass(){
 }
 
 function selectAnswer(e){
-    const selectedButton = e.target
+    const selectedButton = e.target; 
     const correct = selectedButton.dataset.correct 
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    if (shuffledQuestions.length > QIndex + 1) {
     nextButton.classList.remove('hide')
     } else 
     startBtn.innerText = 'Restart'
-    startBtn.classList.remove('hide')
+    
+    // startBtn.classList.remove('hide') no need for it better without
+
     
 }
 //function with if then about wrong and correct answers
 function setStatusClass(element, correct){
-    clearStatusClass(element)
+    clearRightWrongEl(element)
     if (correct){
         element.classList.add('correct')
 
@@ -125,17 +133,27 @@ function setStatusClass(element, correct){
     }
 }
 //function removing the wrong and right elements
-function clearStatusClass (element){
+function clearRightWrongEl (element){
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
 
 
+function clearQuestion(){
+    while(answerButtonsElement.firstChild){
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+    }
+}
 
-   function gameOver(){
-    
-   }
+function gameOver(){
+    clearInterval(runningTimer);
+    countdown.innerHTML = "finished";
+    clearQuestion();
+    // startButton.innerText = "Restart";
+    startBtn.classList.remove("hide")
 
+}
+//arrays of questions used, subject to change
 const questions = [
     {
     question: 'True or False: DOM is built into a Javascript language',

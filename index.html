@@ -11,7 +11,7 @@
   <body>
     <p id="countdown"></p>
     <div class="container">
-      <div id="question-container" class="hide">
+      <section id="question-container" class="hide">
         <div id="question">Question</div>
         <div id="answer-btn" class="btn-grid">
           <span id="timer"></span>
@@ -20,10 +20,15 @@
             <button class="btn">Answer 3</button>
             <button class="btn">Answer 4</button>
         </div>
-      </div>
+      </section>
+      <section class="scores">
+        <div id="scoreCard" class="hide"></div>
+
+      </section>
       <div class="controls">
         <button id="start-btn" class="start-button btn">Start</button>
         <button id="next-btn" class="next-button btn hide">Next</button>
+        <button class="showScoresBtn hide">Show Scores</button>
       </div>
     </div>
     <script src="script.js"></script>

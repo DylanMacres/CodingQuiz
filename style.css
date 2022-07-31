@@ -8,6 +8,12 @@
     --wrong:
 }
 
+#countdown{
+    color:white;
+    background-color: brown;
+    margin: 2rem;
+}
+
 p{
     background-color: brown;
     display: flex;
@@ -30,6 +36,7 @@ body{
     height: 100vh;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-color:brown;
 }
 
@@ -92,7 +99,12 @@ body.wrong{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
+}
+.scoreList{
+    text-decoration: none;
+    margin: 0.4rem;
 }
 
 .hide{
