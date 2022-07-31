@@ -13,6 +13,6 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
 
-![image](https://user-images.githubusercontent.com/107278042/179903208-1a3fc8c0-26e3-41a7-b51b-1c6c1b6121ec.png)
-![image](https://user-images.githubusercontent.com/107278042/179903244-f198b422-e2fe-47a8-8e2d-89a402ef42b3.png)
-![image](https://user-images.githubusercontent.com/107278042/179903304-d7ca2e13-18d8-4e1a-90e9-b0512defbf64.png)
+![image](https://user-images.githubusercontent.com/107278042/182005602-4d4fa5aa-d8fc-468c-ade4-ec4984f76c8f.png)
+![image](https://user-images.githubusercontent.com/107278042/182005612-aaf11a16-d510-4154-b3b4-80550ac69248.png)
+
