@@ -1,5 +1,5 @@
 
-Challenge 
+# Homework 4 : Code Quiz  
 https://dylanmacres.github.io/CodingQuiz/
 This week's challenge was to create a quiz from scratch that had a timer and can determine correct and incorrect responses.
 I was successful in creating the quiz with answers and a working timer, however was not successful in creating a leaderboard or a end to the game.
